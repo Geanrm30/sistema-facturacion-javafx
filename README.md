@@ -52,3 +52,7 @@ src/main/
 | 6 | Seleccionar una imagen | `ImageView` muestra la imagen |
 | 7 | Registrar datos válidos | El producto aparece en `TableView` |
 | 8 | Compilar el proyecto | Compila sin errores |
+
+## Autor
+
+- Geanfranco Rodriguez — [@Geanrm30](https://github.com/Geanrm30)
