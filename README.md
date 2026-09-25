@@ -29,7 +29,7 @@ src/main/
 ```
 
 ## Requisitos
-
+ 
 - JDK 21
 - Maven (se incluye el wrapper `mvnw`)
 - IntelliJ IDEA con *Annotation Processing* habilitado (para Lombok)
