@@ -19,9 +19,12 @@
         <VBox>
             <MenuBar>
                 <Menu text="Archivo">
+                    <MenuItem fx:id="mnuProbarConexion" onAction="#probarConexion" text="Probar conexión"/>
+                    <SeparatorMenuItem/>
                     <MenuItem fx:id="mnuSalir" onAction="#salir" text="Salir"/>
                 </Menu>
                 <Menu text="Catálogos">
+                    <MenuItem fx:id="mnuCategorias" onAction="#abrirCategorias" text="Categorías"/>
                     <MenuItem fx:id="mnuProductos" onAction="#abrirProductos" text="Productos"/>
                 </Menu>
             </MenuBar>
