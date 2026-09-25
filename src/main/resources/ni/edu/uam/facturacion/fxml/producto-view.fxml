@@ -86,6 +86,8 @@
             </padding>
             <Button fx:id="btnGuardar" defaultButton="true" onAction="#guardar" text="Guardar"/>
             <Button fx:id="btnCerrar" cancelButton="true" onAction="#cerrar" text="Cerrar"/>
+            <Button fx:id="btnNuevo" onAction="#nuevo" text="Nuevo"/>
+            <Button fx:id="btnEliminar" onAction="#eliminar" text="Eliminar"/>
         </HBox>
     </bottom>
 </BorderPane>
