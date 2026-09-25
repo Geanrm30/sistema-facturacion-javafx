@@ -1,18 +1,16 @@
-package ni.edu.uam.facturacionapp.model;
+package ni.edu.uam.facturacion.model;
 
 
 import lombok.*;
 
 @Data
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
 public class Categoria {
     private Integer id;
     private String nombre;
-    private boolean activo;
+    private boolean activa;
 
     @Override
     public String toString() {

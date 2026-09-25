@@ -1,12 +1,10 @@
-package ni.edu.uam.facturacionapp.model;
+package ni.edu.uam.facturacion.model;
 
 import lombok.*;
 
 import java.time.LocalDate;
 
 @Data
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 

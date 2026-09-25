@@ -1,10 +1,8 @@
-package ni.edu.uam.facturacionapp.model;
+package ni.edu.uam.facturacion.model;
 
 import lombok.*;
 
 @Data
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
