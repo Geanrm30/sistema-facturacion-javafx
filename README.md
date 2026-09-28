@@ -9,7 +9,7 @@ Programación de Aplicaciones de Escritorio — Universidad Americana (UAM).
 - Paquete base `ni.edu.uam.facturacion` organizado por responsabilidades.
 - Modelos del dominio con Lombok: `Categoria`, `Producto`, `Cargo` y `Empleado`.
 - Menú principal (`MenuBar` + `ToolBar`) con navegación al módulo de productos.
-- Formulario de productos con validaciones, `Alert`, selección de imagen y listado temporal en `TableView`.
+- Formulario de productos con validaciones, `Alert` y listado temporal en `TableView`.
 
 ## Estructura
 
@@ -24,7 +24,7 @@ src/main/
 │       └── util/SceneManager.java
 └── resources/ni/edu/uam/facturacion/
     ├── fxml/    menu-principal.fxml, producto-view.fxml
-    ├── images/  logo.png, productos/
+    ├── images/  logo.png
     └── icons/   agregar.png, cerrar.png
 ```
 
@@ -49,9 +49,8 @@ src/main/
 | 3 | Guardar campos vacíos | Aparece una advertencia |
 | 4 | Ingresar texto en precio o existencia | Aparece un error |
 | 5 | Registrar precio cero o existencia negativa | El registro se rechaza |
-| 6 | Seleccionar una imagen | `ImageView` muestra la imagen |
-| 7 | Registrar datos válidos | El producto aparece en `TableView` |
-| 8 | Compilar el proyecto | Compila sin errores |
+| 6 | Registrar datos válidos | El producto aparece en `TableView` |
+| 7 | Compilar el proyecto | Compila sin errores |
 
 ## Autor
 
