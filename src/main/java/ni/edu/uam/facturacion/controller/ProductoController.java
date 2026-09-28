@@ -12,16 +12,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ni.edu.uam.facturacion.dao.CategoriaDAO;
 import ni.edu.uam.facturacion.dao.ProductoDAO;
 import ni.edu.uam.facturacion.model.Categoria;
 import ni.edu.uam.facturacion.model.Producto;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Objects;
@@ -30,7 +26,6 @@ public class ProductoController {
     @FXML private TextField txtCodigo, txtNombre, txtPrecio, txtExistencia;
     @FXML private ComboBox<Categoria> cmbCategoria;
     @FXML private CheckBox chkActivo;
-    @FXML private ImageView imgProducto;
     @FXML private Button btnEliminar;
     @FXML private TableView<Producto> tblProductos;
     @FXML private TableColumn<Producto, String> colCodigo, colNombre;
@@ -44,7 +39,6 @@ public class ProductoController {
     private final ObservableList<Producto> productos = FXCollections.observableArrayList();
 
     private Producto seleccionado;
-    private String rutaImagen;
 
     @FXML
     private void initialize() {
@@ -54,6 +48,7 @@ public class ProductoController {
         colPrecio.setCellValueFactory(new PropertyValueFactory<>("precioVenta"));
         colExistencia.setCellValueFactory(new PropertyValueFactory<>("existencia"));
         colActivo.setCellValueFactory(new PropertyValueFactory<>("activo"));
+        tblProductos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
         tblProductos.setItems(productos);
 
         tblProductos.getSelectionModel().selectedItemProperty()
@@ -101,33 +96,6 @@ public class ProductoController {
                 .findFirst()
                 .ifPresentOrElse(c -> cmbCategoria.setValue(c),
                         () -> cmbCategoria.getSelectionModel().clearSelection());
-
-        rutaImagen = p.getRutaImagen();
-        cargarImagen(rutaImagen);
-    }
-
-    private void cargarImagen(String ruta) {
-        if (ruta == null || ruta.isBlank()) {
-            imgProducto.setImage(null);
-            return;
-        }
-        try {
-            imgProducto.setImage(new Image(ruta, true));
-        } catch (IllegalArgumentException e) {
-            imgProducto.setImage(null);
-        }
-    }
-
-    @FXML
-    private void seleccionarImagen() {
-        FileChooser chooser = new FileChooser();
-        chooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg"));
-        File archivo = chooser.showOpenDialog(txtCodigo.getScene().getWindow());
-        if (archivo != null) {
-            rutaImagen = archivo.toURI().toString();
-            cargarImagen(rutaImagen);
-        }
     }
 
     @FXML
@@ -150,7 +118,7 @@ public class ProductoController {
             Producto producto = new Producto(
                     seleccionado == null ? null : seleccionado.getId(),
                     txtCodigo.getText().trim(), txtNombre.getText().trim(), cmbCategoria.getValue(), precio,
-                    existencia, rutaImagen, chkActivo.isSelected());
+                    existencia, chkActivo.isSelected());
 
             if (seleccionado == null) {
                 productoDAO.guardar(producto);
@@ -195,8 +163,6 @@ public class ProductoController {
         txtExistencia.clear();
         cmbCategoria.getSelectionModel().clearSelection();
         chkActivo.setSelected(true);
-        imgProducto.setImage(null);
-        rutaImagen = null;
         btnEliminar.setDisable(true);
         txtCodigo.requestFocus();
     }

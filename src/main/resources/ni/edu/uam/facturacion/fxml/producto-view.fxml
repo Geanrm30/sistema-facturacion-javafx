@@ -8,12 +8,10 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="620.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
@@ -53,10 +51,6 @@
                         <TextField fx:id="txtExistencia" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
                         <CheckBox fx:id="chkActivo" text="Activo" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
                     </GridPane>
-                    <VBox alignment="TOP_CENTER" spacing="10.0">
-                        <ImageView fx:id="imgProducto" fitHeight="150.0" fitWidth="150.0" preserveRatio="true"/>
-                        <Button fx:id="btnImagen" onAction="#seleccionarImagen" text="Seleccionar imagen"/>
-                    </VBox>
                 </HBox>
             </top>
             <center>
@@ -69,9 +63,6 @@
                         <TableColumn fx:id="colExistencia" prefWidth="100.0" text="Existencia"/>
                         <TableColumn fx:id="colActivo" prefWidth="80.0" text="Activo"/>
                     </columns>
-                    <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN"/>
-                    </columnResizePolicy>
                     <BorderPane.margin>
                         <Insets top="15.0"/>
                     </BorderPane.margin>

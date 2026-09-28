@@ -35,6 +35,7 @@ public class CategoriaController {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colActiva.setCellValueFactory(new PropertyValueFactory<>("activa"));
+        tblCategorias.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
         tblCategorias.setItems(categorias);
 
         tblCategorias.getSelectionModel().selectedItemProperty()

@@ -29,10 +29,9 @@ public class ProductoDAO {
                 categoria_id,
                 precio_venta,
                 existencia,
-                ruta_imagen,
                 activo
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?)
             """;
 
         try (Connection connection = DatabaseConnection.getConnection();
@@ -42,8 +41,7 @@ public class ProductoDAO {
             ps.setInt(3, producto.getCategoria().getId());
             ps.setBigDecimal(4, producto.getPrecioVenta());
             ps.setInt(5, producto.getExistencia());
-            ps.setString(6, producto.getRutaImagen());
-            ps.setBoolean(7, producto.isActivo());
+            ps.setBoolean(6, producto.isActivo());
             ps.executeUpdate();
         }
     }
@@ -78,7 +76,7 @@ public class ProductoDAO {
         String sql = """
             UPDATE producto
             SET codigo = ?, nombre = ?, categoria_id = ?, precio_venta = ?,
-                existencia = ?, ruta_imagen = ?, activo = ?
+                existencia = ?, activo = ?
             WHERE id = ?
             """;
 
@@ -89,9 +87,8 @@ public class ProductoDAO {
             ps.setInt(3, producto.getCategoria().getId());
             ps.setBigDecimal(4, producto.getPrecioVenta());
             ps.setInt(5, producto.getExistencia());
-            ps.setString(6, producto.getRutaImagen());
-            ps.setBoolean(7, producto.isActivo());
-            ps.setInt(8, producto.getId());
+            ps.setBoolean(6, producto.isActivo());
+            ps.setInt(7, producto.getId());
             ps.executeUpdate();
         }
     }
@@ -119,7 +116,6 @@ public class ProductoDAO {
                 categoria,
                 rs.getBigDecimal("precio_venta"),
                 rs.getInt("existencia"),
-                rs.getString("ruta_imagen"),
                 rs.getBoolean("activo"));
     }
 }
