@@ -13,18 +13,28 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ni.edu.uam.facturacion.dao.CategoriaDAO;
 import ni.edu.uam.facturacion.dao.ProductoDAO;
 import ni.edu.uam.facturacion.model.Categoria;
 import ni.edu.uam.facturacion.model.Producto;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.UUID;
 
 public class ProductoController {
-    @FXML private TextField txtCodigo, txtNombre, txtPrecio, txtExistencia;
+    @FXML private TextField txtCodigo, txtNombre, txtPrecio, txtExistencia, txtRutaImagen;
+    @FXML private ImageView imgProducto;
     @FXML private ComboBox<Categoria> cmbCategoria;
     @FXML private CheckBox chkActivo;
     @FXML private TextField txtBuscar;
@@ -37,6 +47,8 @@ public class ProductoController {
     @FXML private TableColumn<Producto, BigDecimal> colPrecio;
     @FXML private TableColumn<Producto, Integer> colExistencia;
     @FXML private TableColumn<Producto, Boolean> colActivo;
+
+    private static final Path CARPETA_IMAGENES = Path.of("src", "main", "resources", "ni", "edu", "uam", "facturacion", "images", "productos");
 
     private final ProductoDAO productoDAO = new ProductoDAO();
     private final CategoriaDAO categoriaDAO = new CategoriaDAO();
@@ -131,6 +143,7 @@ public class ProductoController {
         txtPrecio.setText(p.getPrecioVenta().toPlainString());
         txtExistencia.setText(String.valueOf(p.getExistencia()));
         chkActivo.setSelected(p.isActivo());
+        mostrarImagen(p.getRutaImagen());
 
         cmbCategoria.getItems().stream()
                 .filter(c -> Objects.equals(c.getId(), p.getCategoria().getId()))
@@ -197,8 +210,9 @@ public class ProductoController {
                 p.getCodigo().equalsIgnoreCase(codigo) && !Objects.equals(p.getId(), id));
         if (duplicado) return invalido("Ya existe un producto con el código \"" + codigo + "\".");
 
+        String ruta = txtRutaImagen.getText().isBlank() ? null : txtRutaImagen.getText();
         return new Producto(id, codigo, nombre, cmbCategoria.getValue(), precio,
-                existencia, chkActivo.isSelected());
+                existencia, ruta, chkActivo.isSelected());
     }
 
     private Producto invalido(String texto) {
@@ -231,12 +245,52 @@ public class ProductoController {
         txtNombre.clear();
         txtPrecio.clear();
         txtExistencia.clear();
+        mostrarImagen(null);
         cmbCategoria.getSelectionModel().clearSelection();
         chkActivo.setSelected(true);
         btnEliminar.setDisable(true);
         btnActualizar.setDisable(true);
         btnGuardar.setDisable(false);
         txtCodigo.requestFocus();
+    }
+
+    // Copia la imagen elegida a la carpeta images/productos de resources y guarda su ruta relativa
+    @FXML
+    private void examinarImagen() {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Seleccionar imagen del producto");
+        chooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg", "*.gif"));
+        File archivo = chooser.showOpenDialog(txtCodigo.getScene().getWindow());
+        if (archivo == null) return;
+
+        // JavaFX no decodifica todos los formatos (p. ej. WebP renombrado como .jpg)
+        if (new Image(archivo.toURI().toString()).isError()) {
+            mensaje(Alert.AlertType.WARNING, "No se puede leer esa imagen. "
+                    + "Use un archivo PNG, JPG o GIF válido (si es WebP, conviértalo primero).");
+            return;
+        }
+
+        try {
+            Files.createDirectories(CARPETA_IMAGENES);
+            Path destino = CARPETA_IMAGENES.resolve(UUID.randomUUID() + "_" + archivo.getName());
+            Files.copy(archivo.toPath(), destino, StandardCopyOption.REPLACE_EXISTING);
+            mostrarImagen(destino.toString());
+        } catch (IOException e) {
+            mensaje(Alert.AlertType.ERROR, "No se pudo copiar la imagen: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void quitarImagen() {
+        mostrarImagen(null);
+    }
+
+    private void mostrarImagen(String ruta) {
+        txtRutaImagen.setText(ruta == null ? "" : ruta);
+        File archivo = ruta == null ? null : new File(ruta);
+        imgProducto.setImage(archivo != null && archivo.exists()
+                ? new Image(archivo.toURI().toString()) : null);
     }
 
     @FXML

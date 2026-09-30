@@ -11,7 +11,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="620.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
@@ -49,8 +51,17 @@
                         <TextField fx:id="txtPrecio" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
                         <Label text="Existencia:" GridPane.rowIndex="4"/>
                         <TextField fx:id="txtExistencia" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                        <CheckBox fx:id="chkActivo" text="Activo" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                        <Label text="Imagen:" GridPane.rowIndex="5"/>
+                        <HBox spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                            <TextField fx:id="txtRutaImagen" editable="false" promptText="Sin imagen" HBox.hgrow="ALWAYS"/>
+                            <Button onAction="#examinarImagen" text="Examinar..."/>
+                            <Button onAction="#quitarImagen" text="Quitar"/>
+                        </HBox>
+                        <CheckBox fx:id="chkActivo" text="Activo" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
                     </GridPane>
+                    <StackPane prefHeight="150.0" prefWidth="150.0" minWidth="150.0" style="-fx-border-color: gray; -fx-border-radius: 4;">
+                        <ImageView fx:id="imgProducto" fitHeight="140.0" fitWidth="140.0" preserveRatio="true"/>
+                    </StackPane>
                 </HBox>
             </top>
             <center>
