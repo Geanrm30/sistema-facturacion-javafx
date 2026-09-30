@@ -54,6 +54,19 @@
                 </HBox>
             </top>
             <center>
+                <BorderPane>
+                    <top>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <Label text="Buscar:"/>
+                            <TextField fx:id="txtBuscar" promptText="Código, nombre o categoría" HBox.hgrow="ALWAYS"/>
+                            <ComboBox fx:id="cmbEstado"/>
+                            <ComboBox fx:id="cmbFiltroCategoria"/>
+                            <BorderPane.margin>
+                                <Insets top="15.0"/>
+                            </BorderPane.margin>
+                        </HBox>
+                    </top>
+                    <center>
                 <TableView fx:id="tblProductos">
                     <columns>
                         <TableColumn fx:id="colCodigo" prefWidth="100.0" text="Código"/>
@@ -64,9 +77,11 @@
                         <TableColumn fx:id="colActivo" prefWidth="80.0" text="Activo"/>
                     </columns>
                     <BorderPane.margin>
-                        <Insets top="15.0"/>
+                        <Insets top="10.0"/>
                     </BorderPane.margin>
                 </TableView>
+                    </center>
+                </BorderPane>
             </center>
         </BorderPane>
     </center>
@@ -76,6 +91,7 @@
                 <Insets top="10.0"/>
             </padding>
             <Button fx:id="btnGuardar" defaultButton="true" onAction="#guardar" text="Guardar"/>
+            <Button fx:id="btnActualizar" onAction="#actualizar" text="Actualizar"/>
             <Button fx:id="btnCerrar" cancelButton="true" onAction="#cerrar" text="Cerrar"/>
             <Button fx:id="btnNuevo" onAction="#nuevo" text="Nuevo"/>
             <Button fx:id="btnEliminar" onAction="#eliminar" text="Eliminar"/>
