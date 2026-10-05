@@ -125,7 +125,7 @@ public class ProductoDAO {
 
 
     public boolean existeNombre(String nombre) throws SQLException {
-        String sql = "SELECT 1 FROM producto WHERE nombre = ?";
+        String sql = "SELECT 1 FROM producto WHERE LOWER(nombre) = LOWER(?)";
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {

@@ -10,11 +10,13 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import ni.edu.uam.facturacion.dao.CategoriaDAO;
@@ -79,6 +81,17 @@ public class ProductoController {
 
         tblProductos.getSelectionModel().selectedItemProperty()
                 .addListener((obs, anterior, actual) -> mostrar(actual));
+
+        tblProductos.setRowFactory(tv -> {
+            TableRow<Producto> fila = new TableRow<>();
+            boolean[] estabaSeleccionada = {false};
+            fila.addEventFilter(MouseEvent.MOUSE_PRESSED,
+                    e -> estabaSeleccionada[0] = !fila.isEmpty() && fila.isSelected());
+            fila.setOnMouseClicked(e -> {
+                if (estabaSeleccionada[0] && !fila.isEmpty()) nuevo();
+            });
+            return fila;
+        });
 
         chkActivo.setSelected(true);
         btnActualizar.setDisable(true);
@@ -187,7 +200,8 @@ public class ProductoController {
         if (producto == null) return;
 
         try {
-            if (productoDAO.existeNombre(producto.getNombre())) {
+            boolean nombreCambiado = !producto.getNombre().equalsIgnoreCase(seleccionado.getNombre());
+            if (nombreCambiado && productoDAO.existeNombre(producto.getNombre())) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
                         "El nombre ya existe, ¿Desea actualizarlo de todos modos?",
                         ButtonType.YES, ButtonType.NO);
