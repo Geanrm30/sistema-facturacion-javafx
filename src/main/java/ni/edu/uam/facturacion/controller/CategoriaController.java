@@ -100,7 +100,12 @@ public class CategoriaController {
                 ButtonType.OK, ButtonType.CANCEL);
         if (confirmar.showAndWait().orElse(ButtonType.CANCEL) != ButtonType.OK) return;
 
+
         try {
+            if (categoriaDAO.tieneProductos(seleccionada.getId())) {
+                mensaje(Alert.AlertType.WARNING, "La categoría tiene productos.");
+                return;
+            }    
             categoriaDAO.eliminar(seleccionada.getId());
             nuevo();
             cargarCategorias();

@@ -104,4 +104,31 @@ public class CategoriaDAO {
 
         return false;
     }
+
+    public boolean tieneProductos(int categoriaId)
+            throws SQLException {
+
+        String sql = """
+        SELECT COUNT(*)
+        FROM Producto
+        WHERE categoria_id = ?
+        """;
+
+        try (
+                Connection cn = DatabaseConnection.getConnection();
+                PreparedStatement ps = cn.prepareStatement(sql)
+        ) {
+
+            ps.setInt(1, categoriaId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        }
+
+        return false;
+    }
 }
