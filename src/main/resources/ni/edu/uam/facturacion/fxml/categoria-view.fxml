@@ -7,6 +7,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -61,10 +63,34 @@
             <padding>
                 <Insets top="10.0"/>
             </padding>
-            <Button fx:id="btnNuevo" onAction="#nuevo" text="Nuevo"/>
-            <Button fx:id="btnEliminar" onAction="#eliminar" text="Eliminar"/>
-            <Button fx:id="btnGuardar" defaultButton="true" onAction="#guardar" text="Guardar"/>
-            <Button fx:id="btnCerrar" cancelButton="true" onAction="#cerrar" text="Cerrar"/>
+            <Button fx:id="btnNuevo" onAction="#nuevo" text="Nuevo">
+                <graphic>
+                    <ImageView fitHeight="18.0" fitWidth="18.0" preserveRatio="true">
+                        <Image url="@../icons/agregar.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="btnEliminar" onAction="#eliminar" text="Eliminar">
+                <graphic>
+                    <ImageView fitHeight="18.0" fitWidth="18.0" preserveRatio="true">
+                        <Image url="@../icons/eliminar.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="btnGuardar" defaultButton="true" onAction="#guardar" text="Guardar">
+                <graphic>
+                    <ImageView fitHeight="18.0" fitWidth="18.0" preserveRatio="true">
+                        <Image url="@../icons/Guardar.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="btnCerrar" cancelButton="true" onAction="#cerrar" text="Cerrar">
+                <graphic>
+                    <ImageView fitHeight="18.0" fitWidth="18.0" preserveRatio="true">
+                        <Image url="@../icons/cerrar.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
         </HBox>
     </bottom>
 </BorderPane>

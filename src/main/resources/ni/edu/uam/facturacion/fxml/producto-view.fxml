@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -54,7 +55,13 @@
                         <Label text="Imagen:" GridPane.rowIndex="5"/>
                         <HBox spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                             <TextField fx:id="txtRutaImagen" editable="false" promptText="Sin imagen" HBox.hgrow="ALWAYS"/>
-                            <Button onAction="#examinarImagen" text="Examinar..."/>
+                            <Button onAction="#examinarImagen" text="Examinar...">
+                                <graphic>
+                                    <ImageView fitHeight="18.0" fitWidth="18.0" preserveRatio="true">
+                                        <Image url="@../icons/examinar.png"/>
+                                    </ImageView>
+                                </graphic>
+                            </Button>
                             <Button onAction="#quitarImagen" text="Quitar"/>
                         </HBox>
                         <CheckBox fx:id="chkActivo" text="Activo" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
@@ -101,11 +108,41 @@
             <padding>
                 <Insets top="10.0"/>
             </padding>
-            <Button fx:id="btnGuardar" defaultButton="true" onAction="#guardar" text="Guardar"/>
-            <Button fx:id="btnActualizar" onAction="#actualizar" text="Actualizar"/>
-            <Button fx:id="btnCerrar" cancelButton="true" onAction="#cerrar" text="Cerrar"/>
-            <Button fx:id="btnNuevo" onAction="#nuevo" text="Nuevo"/>
-            <Button fx:id="btnEliminar" onAction="#eliminar" text="Eliminar"/>
+            <Button fx:id="btnGuardar" defaultButton="true" onAction="#guardar" text="Guardar">
+                <graphic>
+                    <ImageView fitHeight="18.0" fitWidth="18.0" preserveRatio="true">
+                        <Image url="@../icons/Guardar.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="btnActualizar" onAction="#actualizar" text="Actualizar">
+                <graphic>
+                    <ImageView fitHeight="18.0" fitWidth="18.0" preserveRatio="true">
+                        <Image url="@../icons/actualizar.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="btnCerrar" cancelButton="true" onAction="#cerrar" text="Cerrar">
+                <graphic>
+                    <ImageView fitHeight="18.0" fitWidth="18.0" preserveRatio="true">
+                        <Image url="@../icons/cerrar.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="btnNuevo" onAction="#nuevo" text="Nuevo">
+                <graphic>
+                    <ImageView fitHeight="18.0" fitWidth="18.0" preserveRatio="true">
+                        <Image url="@../icons/agregar.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="btnEliminar" onAction="#eliminar" text="Eliminar">
+                <graphic>
+                    <ImageView fitHeight="18.0" fitWidth="18.0" preserveRatio="true">
+                        <Image url="@../icons/eliminar.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
         </HBox>
     </bottom>
 </BorderPane>
