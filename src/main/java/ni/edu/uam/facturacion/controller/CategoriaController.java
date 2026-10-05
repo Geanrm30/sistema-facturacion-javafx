@@ -71,9 +71,17 @@ public class CategoriaController {
         }
         try {
             if (seleccionada == null) {
+                if (categoriaDAO.existeNombre(nombre)) {
+                    mensaje(Alert.AlertType.WARNING, "El nombre ya existe.");
+                    return;
+                }
                 categoriaDAO.guardar(new Categoria(null, nombre, chkActiva.isSelected()));
                 mensaje(Alert.AlertType.INFORMATION, "Categoría registrada.");
             } else {
+                if (categoriaDAO.existeNombre(nombre)) {
+                    mensaje(Alert.AlertType.WARNING, "El nombre ya existe.");
+                    return;
+                }
                 categoriaDAO.actualizar(new Categoria(seleccionada.getId(), nombre, chkActiva.isSelected()));
                 mensaje(Alert.AlertType.INFORMATION, "Categoría actualizada.");
             }
