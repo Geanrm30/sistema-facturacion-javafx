@@ -156,6 +156,20 @@ public class ProductoController {
     private void guardar() {
         Producto producto = leerFormulario(null);
         if (producto == null) return;
+
+        try {
+            if (productoDAO.existeNombre(producto.getNombre())) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                        "El nombre ya existe, ¿Desea agregarlo de todos modos?",
+                        ButtonType.YES, ButtonType.NO);
+                if (alert.showAndWait().orElse(ButtonType.NO) != ButtonType.YES) {
+                    return;
+                }
+            }
+        } catch (SQLException e) {
+            mensaje(Alert.AlertType.ERROR, "Error de base de datos: " + e.getMessage());
+            return;
+        }
         try {
             productoDAO.guardar(producto);
             mensaje(Alert.AlertType.INFORMATION, "Producto registrado correctamente.");
@@ -171,6 +185,20 @@ public class ProductoController {
         if (seleccionado == null) return;
         Producto producto = leerFormulario(seleccionado.getId());
         if (producto == null) return;
+
+        try {
+            if (productoDAO.existeNombre(producto.getNombre())) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                        "El nombre ya existe, ¿Desea actualizarlo de todos modos?",
+                        ButtonType.YES, ButtonType.NO);
+                if (alert.showAndWait().orElse(ButtonType.NO) != ButtonType.YES) {
+                    return;
+                }
+            }
+        } catch (SQLException e) {
+            mensaje(Alert.AlertType.ERROR, "Error de base de datos: " + e.getMessage());
+            return;
+        }
         try {
             productoDAO.actualizar(producto);
             mensaje(Alert.AlertType.INFORMATION, "Producto actualizado correctamente.");

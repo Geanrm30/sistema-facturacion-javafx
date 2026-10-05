@@ -14,26 +14,26 @@ import java.util.List;
 public class ProductoDAO {
 
     private static final String SELECT = """
-        SELECT p.*, c.nombre AS categoria_nombre, c.activa AS categoria_activa
-        FROM producto p
-        INNER JOIN categoria c
-        ON p.categoria_id = c.id
-        """;
+            SELECT p.*, c.nombre AS categoria_nombre, c.activa AS categoria_activa
+            FROM producto p
+            INNER JOIN categoria c
+            ON p.categoria_id = c.id
+            """;
 
     public void guardar(Producto producto) throws SQLException {
         String sql = """
-            INSERT INTO producto
-            (
-                codigo,
-                nombre,
-                categoria_id,
-                precio_venta,
-                existencia,
-                ruta_imagen,
-                activo
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-            """;
+                INSERT INTO producto
+                (
+                    codigo,
+                    nombre,
+                    categoria_id,
+                    precio_venta,
+                    existencia,
+                    ruta_imagen,
+                    activo
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                """;
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -76,11 +76,11 @@ public class ProductoDAO {
 
     public void actualizar(Producto producto) throws SQLException {
         String sql = """
-            UPDATE producto
-            SET codigo = ?, nombre = ?, categoria_id = ?, precio_venta = ?,
-                existencia = ?, ruta_imagen = ?, activo = ?
-            WHERE id = ?
-            """;
+                UPDATE producto
+                SET codigo = ?, nombre = ?, categoria_id = ?, precio_venta = ?,
+                    existencia = ?, ruta_imagen = ?, activo = ?
+                WHERE id = ?
+                """;
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -121,5 +121,18 @@ public class ProductoDAO {
                 rs.getInt("existencia"),
                 rs.getString("ruta_imagen"),
                 rs.getBoolean("activo"));
+    }
+
+
+    public boolean existeNombre(String nombre) throws SQLException {
+        String sql = "SELECT 1 FROM producto WHERE nombre = ?";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, nombre);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        }
     }
 }
